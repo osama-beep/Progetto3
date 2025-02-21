@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Progetto3.Models.Articolo>
+
+@{
+    ViewData["Title"] = "Sneakers Collection";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-5">Sneakers Collection</h1>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var articolo in Model)
+        {
+            <div class="col">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="@articolo.UrlImmagineCopertina" class="card-img-top" alt="@articolo.Nome">
+                    <div class="card-body">
+                        <h5 class="card-title">@articolo.Nome</h5>
+                        <p class="card-text text-muted">@articolo.Prezzo.ToString("C")</p>
+                        <a asp-action="Dettaglio" asp-route-id="@articolo.Id" class="btn btn-outline-dark btn-sm">Dettagli</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
