@@ -1,8 +1,35 @@
-﻿@{
+﻿@model Dictionary<string, List<Progetto3.Models.Articolo>>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-5">
+    <h1 class="text-center mb-5">FARFETCH COLLECTIONS</h1>
+
+    @foreach (var marca in Model.Keys)
+    {
+        <h2 class="mt-4">@marca Collection</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4 mb-3">
+            @foreach (var articolo in Model[marca])
+            {
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <img src="@articolo.UrlImmagineCopertina" class="card-img-top" alt="@articolo.Nome">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">@articolo.Nome</h5>
+                            <p class="card-text mt-auto"><strong>@articolo.Prezzo.ToString("C")</strong></p>
+                            <a asp-controller="Articoli" asp-action="Dettaglio" asp-route-id="@articolo.Id" class="btn btn-primary btn-sm mt-2 align-self-start">Dettagli</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        @if (ViewBag.MostraVisualizzaDiPiu[marca])
+        {
+            <div class="text-center mb-5">
+                <a asp-controller="Articoli" asp-action="Index" asp-route-marca="@marca" class="btn btn-outline-primary">Visualizza di più</a>
+            </div>
+        }
+    }
 </div>
